@@ -5,7 +5,7 @@ import sys
 
 name = 'sites'
 
-sites_modules = { 'coderprog.com': 'coderprog', 'sanet.st' : 'sanet' }
+sites_modules = { 'coderprog.com': 'coderprog', 'sanet.st' : 'sanet', 'www.ebook777.com': 'ebook777' }
 
 def extract_data(url_link):
 

@@ -28,7 +28,7 @@ def get_http_content(url):
         if scheme == 'https':
             req = request.HTTPSConnection(urlobj.netloc)
         else:
-            req = request.HTTPConnection(url.netloc)
+            req = request.HTTPConnection(urlobj.netloc)
         path = urlobj.path
         if len(urlobj.query) > 0:
             path += '?' + urlobj.query
