@@ -29,10 +29,12 @@ def get_http_content(url):
             req = request.HTTPSConnection(urlobj.netloc)
         else:
             req = request.HTTPConnection(urlobj.netloc)
+        
         path = urlobj.path
         if len(urlobj.query) > 0:
             path += '?' + urlobj.query
         req.putrequest('GET', path)
+        req.putheader('User-Agent','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0')
         req.endheaders()
         r = req.getresponse()
     except Exception as e:
