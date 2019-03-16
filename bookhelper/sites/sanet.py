@@ -20,16 +20,16 @@ def extract_data(content):
         print('Warning:', e)
     try:
         year = None
-        regexp = re.compile(r'^19[0-9]{2}|20[0,1][0-9]$')
+        regexp = re.compile(r'(19[0-9]{2}|20[0,1][0-9])')
         for item in html.fromstring(content).xpath('//div[@class="release-info"]/text()')[0].split('|'):
             item = item.strip()
             res = regexp.search(item)
             if res:
-                year = item
+                year = res.groups()[0].strip()
                 break
                 print('Date successfully retrieved %s' % year)
         if not year or len(year) == 0:
-            msg = 'Error retrieving year in [%s]' % str
+            msg = 'Error retrieving year in [%s]' % year
             raise FormatException(msg)
     except Exception as e:
         print('Warning:', e)
