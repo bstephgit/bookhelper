@@ -40,14 +40,12 @@ def extract_data(content):
         print('Warning:', e)
 
     descr = ''
-    siblings = html.fromstring(content).xpath('//h3/following-sibling::p')
+    siblings = html.fromstring(content).xpath('//h3[contains(text(),"Book Description:")=true]/following-sibling::*')
     for item in siblings:
-        if item.tag == 'div':
-            continue
         if item.tag == 'script':
-            break
-        txt = etree.tostring(item, encoding='UTF-8').replace(b'\n', b'').decode('utf-8').strip()
-        if len(txt) > 0:
+            continue 
+        if item.text:
+            txt = etree.tostring(item, encoding='UTF-8').replace(b'\n', b'').decode('utf-8').strip()
             descr += txt
         #print('description=%s',descr)
 
@@ -56,8 +54,10 @@ def extract_data(content):
 
 
 if __name__=="__main__":
-    url = 'http://www.ebook777.com/model-theory-applications-algebra-analysis-volume-1/'
+    url = 'http://www.ebook777.com/game-theory-applications-game-theoretic-models-mathematical-ecology/'
     from bookhelper.sites.http_request import get_http_content
     content = get_http_content(url)
     print(content[:100])
+    with open('content.html','wb') as fwr:
+        fwr.write(content)
     print(extract_data(content))
