@@ -40,7 +40,7 @@ def extract_data(content):
         print('Warning:', e)
 
     descr = ''
-    siblings = html.fromstring(content).xpath('//h3[contains(text(),"Book Description:")=true]/following-sibling::*')
+    siblings = html.fromstring(content).xpath('//h3[text()="Book Description:"]/following-sibling::*')
     for item in siblings:
         if item.tag == 'script':
             continue 
@@ -54,7 +54,7 @@ def extract_data(content):
 
 
 if __name__=="__main__":
-    url = 'http://www.ebook777.com/game-theory-applications-game-theoretic-models-mathematical-ecology/'
+    url = 'http://www.ebook777.com/statistical-adaptive-signal-processing/'
     from bookhelper.sites.http_request import get_http_content
     content = get_http_content(url)
     print(content[:100])
