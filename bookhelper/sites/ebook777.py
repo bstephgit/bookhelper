@@ -39,14 +39,15 @@ def extract_data(content):
     except Exception as e:
         print('Warning:', e)
 
+    xpath_query = '//h3[text()="Book Description:"]/following-sibling::p[string-length(child::text())>1]'
+    xpath_query += '| //h3[text()="Book Description:"]/following-sibling::div[@class="text"]'
     descr = ''
-    siblings = html.fromstring(content).xpath('//h3[text()="Book Description:"]/following-sibling::*')
+    siblings = html.fromstring(content).xpath(xpath_query)
     for item in siblings:
         if item.tag == 'script':
-            continue 
-        if item.text:
-            txt = etree.tostring(item, encoding='UTF-8').replace(b'\n', b'').decode('utf-8').strip()
-            descr += txt
+            break 
+       
+        descr += etree.tostring(item, encoding='UTF-8').replace(b'\n', b'').decode('utf-8').strip()
         #print('description=%s',descr)
 
     return {ElementNames.TITLE: title.strip(), ElementNames.AUTHOR: author.strip(), ElementNames.YEAR: year, \
@@ -54,7 +55,8 @@ def extract_data(content):
 
 
 if __name__=="__main__":
-    url = 'http://www.ebook777.com/statistical-adaptive-signal-processing/'
+    url = 'http://www.ebook777.com/bayesian-programming/'
+    url = 'http://www.ebook777.com/quaternions-theory-applications/'
     from bookhelper.sites.http_request import get_http_content
     content = get_http_content(url)
     print(content[:100])

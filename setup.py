@@ -5,7 +5,7 @@ with open("README.md","r") as fh:
 
 setuptools.setup(
     name="bookhelper",
-    version="0.0.7",
+    version="0.0.8",
     author="Albert Dupre",
     author_email="tcn753@yahoo.fr",
     description="Helper for uploading file using book store site",
